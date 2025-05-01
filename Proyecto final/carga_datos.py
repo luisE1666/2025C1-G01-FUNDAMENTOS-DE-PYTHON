@@ -1,46 +1,17 @@
 import pyreadstat
 import pandas as pd
-import os 
+
 def cargar_datos():
-    
-    try:
-        # Carpeta actual del script
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-
-        # Lista con los años que querés cargar (podés ampliarla si hay más archivos)
-        años = list(range(2014, 2017))  # del 2014 al 2023
-
-        # Lista para guardar cada DataFrame
-        dataframes = []
-
-        for año in años:
-            nombre_archivo = f"NACI{año}.sav"
-            ruta_archivo = os.path.join(base_dir, nombre_archivo)
-
-            if os.path.exists(ruta_archivo):
-                print(f"Cargando {nombre_archivo}...")
-                df, meta = pyreadstat.read_sav(ruta_archivo)
-                dataframes.append(df)
-            else:
-                print(f"⚠️  Archivo {nombre_archivo} no encontrado, se omite.")
-
-        # Unir todos los DataFrames cargados en uno solo
-        if dataframes:
-            df_total = pd.concat(dataframes, ignore_index=True)
-            return df_total
-        else:
-            print("❌ No se cargó ningún archivo.")
-            return None
-
-    except Exception as e:
-        print(f"Error general al cargar los datos: {e}")
-        return None   
-    
-    
- 
-    
-    
-    
+    años = range(2014, 2024)##2014, 2024
+    dataframes = []
+    for año in años:
+        archivo = f"NACI{año}.sav"
+        try:
+            df, meta = pyreadstat.read_sav(archivo)
+            dataframes.append(df)
+        except Exception as e:
+            print(f"Error al cargar {archivo}: {e}")
+            continue
     
     
     df = pd.concat(dataframes, ignore_index=True)
@@ -104,6 +75,7 @@ def cargar_datos():
 
 
     return df
+
 
 
 

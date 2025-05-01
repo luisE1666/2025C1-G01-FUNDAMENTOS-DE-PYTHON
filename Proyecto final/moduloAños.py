@@ -14,7 +14,7 @@ def escoger_año():
                     añoCorrecto = True
                     año1 = año
                     año2 = año
-                    print(año2)
+                    #print(año2)
                     break
                 else:
                     print("Opcion no validad")
